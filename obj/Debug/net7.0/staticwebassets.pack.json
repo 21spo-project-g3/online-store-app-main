@@ -13,6 +13,18 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Files\\2-Ohjelmointi\\2-github\\steltii-oamk\\online-store-app\\wwwroot\\images\\main_christmas.png",
+      "PackagePath": "staticwebassets\\images\\main_christmas.png"
+    },
+    {
+      "Id": "D:\\Files\\2-Ohjelmointi\\2-github\\steltii-oamk\\online-store-app\\wwwroot\\images\\main_content_index.png",
+      "PackagePath": "staticwebassets\\images\\main_content_index.png"
+    },
+    {
+      "Id": "D:\\Files\\2-Ohjelmointi\\2-github\\steltii-oamk\\online-store-app\\wwwroot\\images\\turrbobuy_logo.png",
+      "PackagePath": "staticwebassets\\images\\turrbobuy_logo.png"
+    },
+    {
       "Id": "D:\\Files\\2-Ohjelmointi\\2-github\\steltii-oamk\\online-store-app\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
