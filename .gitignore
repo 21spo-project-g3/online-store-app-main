@@ -1,0 +1,26 @@
+# ASP.NET Core
+bin/
+obj/
+
+# Visual Studio
+.vs/
+.vscode/
+*.suo
+*.user
+*.sln.docstates
+*_i.c
+*_p.c
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+
+# Rider
+.idea/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
