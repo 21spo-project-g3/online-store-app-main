@@ -4,14 +4,30 @@ using online_store_app.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure the connection string
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+
+    // Remove email and password requirements
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 1; // Set to your desired minimum length
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.User.RequireUniqueEmail = false; // Remove email uniqueness requirement
+})
+.AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
