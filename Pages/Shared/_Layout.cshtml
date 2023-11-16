@@ -4,27 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - shop like a trillionaire!</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/online_store_app.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3" style="background-color: rgb(33, 33, 33)">
+        <nav class="navbar navbar-dark border-bottom box-shadow bg-primary p-0" data-bs-theme="dark">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">
+                <a class="navbar-brand" asp-controller="home" asp-action="index">
                     <img id="main-logo" src="~/images/turrbobuy_logo.png" alt="Shoppis logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <div class="navbar d-sm-inline-flex justify-content-between p-0">
                     <div class="d-flex align-items-center">
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
 
                         <!-- admin@admin käyttäjästä tehdään admin -->
                         @{
@@ -36,34 +33,47 @@
                             <p class="navbar-text ms-3">Welcome, Admin!</p>
                         }
                     </div>
-                    <partial name="_LoginPartial" />
+                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                        <button type="button" class="btn btn-info disabled">
+                            <i class="bi bi-person"></i>
+                        </button>
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop3" type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop3" style="">
+                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 p-0">
             <div class="container">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Technology">Technology</a>
+                            <a class="nav-link" asp-area="" asp-page="/Technology">Technology</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Gaming">Gaming</a>
+                            <a class="nav-link" asp-area="" asp-page="/Gaming">Gaming</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Picture_sound">Picture & sound</a>
+                            <a class="nav-link" asp-area="" asp-page="/Picture_sound">Picture & sound</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Phones_tablets">Phones & tablets</a>
+                            <a class="nav-link" asp-area="" asp-page="/Phones_tablets">Phones & tablets</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Hobbies_free_time">Hobbies & free time</a>
+                            <a class="nav-link" asp-area="" asp-page="/Hobbies_free_time">Hobbies & free time</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Category" asp-action="Index">Categories</a>
+                        </li>
                         <!-- Tämä näkyy vain admin käyttäjälle -->
                         @if (isAdmin)
                         {
@@ -82,9 +92,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - TurrboBuy - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <footer class="border-top footer bg-primary text-muted">
+        <div class="text-center">
+            <i class="bi bi-c-circle-fill"></i> TurrboBuy
         </div>
     </footer>
 
