@@ -1,0 +1,41 @@
+﻿@model List<online_store_app.Models.Product>
+
+<main>
+    <section class="py-5 text-center container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Technology</li>
+            </ol>
+        </nav>
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Technology</h1>
+                <p class="lead text-body-secondary">In the Turrbobuy selection, there is technology for every departure. So if the search includes a computer or its peripherals, you will find them.</p>
+            </div>
+        </div>
+    </section>
+    <div class="album bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-3 row-cols-md-5 g-3">
+                @foreach (var product in Model)
+                {
+                    <div class="col">
+                        <div class="card shadow-sm" style="height:100%;">
+                            <img class="card-img-top p-2" src="@product.ImageUrl" alt="Product Image" style="height:200px;width:100%;object-fit:contain;">
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Name</h5>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <p class="card-subtitle" style="color: orangered; font-weight: bold;">@product.Price</p>
+                                    <button type="button" class="btn btn-sm btn-info ml-auto">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</main>

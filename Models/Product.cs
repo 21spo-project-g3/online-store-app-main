@@ -7,18 +7,13 @@ namespace online_store_app.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public int SerialNumber { get; set; }
+        public long EAN { get; set; } = 0;
         [Required]
-        public string Name { get; set; } = "Null";
+        public string Name { get; set; } = string.Empty;
         [Required]
-        public string Category { get; set; } = "Null";
+        public string Description { get; set; } = string.Empty;
         [Required]
-        public string Description { get; set; } = "";
-        [Required]
-        public decimal Price { get; set; } = 0;
-        [Required]
-        public string PriceUnit { get; set; } = "€";
-        public string ImageId { get; set; } = "";
-
+        public double Price { get; set; } = 0.00;
+        public string ImageUrl { get; set; } = string.Empty;
     }
 }

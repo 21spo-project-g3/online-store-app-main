@@ -12,8 +12,8 @@ using online_store_app.Data;
 namespace online_store_app.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231115212248_UpdateProductTableToDb")]
-    partial class UpdateProductTableToDb
+    [Migration("20231116172558_SeedProductTable")]
+    partial class SeedProductTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -291,9 +291,8 @@ namespace online_store_app.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("EAN")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -302,16 +301,35 @@ namespace online_store_app.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(12,2)");
 
-                    b.Property<string>("PriceUnit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SerialNumber")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "GeForce RTX 30 -sarjan grafiikkasuorittimet antavat äärimmäisen suorituskyvyn niin pelaajien kuin luovan työn tekijöidenkin käyttöön. Tehon salaisuus on Ampere – NVIDIAN toisen sukupolven RTX-arkkitehtuuri, jonka uudistetut RT- ja Tensor-ytimet sekä SM-monisuorittimet varmistavat tähän asti realistisimman säteenseurantagrafiikan ja huippuluokan tekoälytoiminnot",
+                            EAN = 4711081309925L,
+                            Name = "Asus GeForce DUAL-RTX3060-O12G-V2",
+                            Price = 299.99m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "TUF Gaming GeForce RTX 4080 -näytönohjaimen NVIDIA Ada Lovelace -arkkitehtuurin tukena on tehokas jäähdytys ja virransyöttö sekä suorituskyvyn turvaavat vahvistukset. Lataa, varmista ja valmistaudu voittoon.",
+                            EAN = 4711081950745L,
+                            Name = "Asus GeForce TUF-RTX4080-16G-GAMING",
+                            Price = 1369.99m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "AMD Radeon RX 7800 -sarja perustuvat uraauurtavaan AMD RDNA 3 -arkkitehtuuriin, jossa on chiplet-tekniikka, ja ne tarjoavat seuraavan sukupolven suorituskyvyn, visuaalisuuden ja tehokkuuden 4K-tasolla ja sen yli. Radeon RX 7800 -sarjan grafiikassa on edistykselliset AMD RDNA 3 -laskentayksiköt, toisen sukupolven säteenseuranta ja uudet tekoälykiihdyttimet, jotka tuottavat uskomatonta suorituskykyä ja maksimoivat graafisen tarkkuuden.",
+                            EAN = 4895106294349L,
+                            Name = "Sapphire PULSE RX 7800 XT Gaming 16 Gt",
+                            Price = 619.99m
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
