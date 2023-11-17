@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using online_store_app.Data;
 
@@ -11,9 +12,11 @@ using online_store_app.Data;
 namespace online_store_app.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231116192151_UpdateCategoryTableToDbV2")]
+    partial class UpdateCategoryTableToDbV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,6 +235,10 @@ namespace online_store_app.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
@@ -247,30 +254,35 @@ namespace online_store_app.Data.Migrations
                         new
                         {
                             Id = 1,
+                            Description = "In the Turrbobuy selection, there is technology for every departure. So if the search includes a computer or its peripherals, you will find them.",
                             DisplayOrder = 1,
                             Name = "Technology"
                         },
                         new
                         {
                             Id = 2,
+                            Description = "In the Turrbobuy selection, there is technology for every departure. So if the search includes a computer or its peripherals, you will find them.",
                             DisplayOrder = 2,
                             Name = "Gaming"
                         },
                         new
                         {
                             Id = 3,
+                            Description = "In the Turrbobuy selection, there is technology for every departure. So if the search includes a computer or its peripherals, you will find them.",
                             DisplayOrder = 3,
                             Name = "Picture & sound"
                         },
                         new
                         {
                             Id = 4,
+                            Description = "In the Turrbobuy selection, there is technology for every departure. So if the search includes a computer or its peripherals, you will find them.",
                             DisplayOrder = 4,
                             Name = "Phones & tablets"
                         },
                         new
                         {
                             Id = 5,
+                            Description = "In the Turrbobuy selection, there is technology for every departure. So if the search includes a computer or its peripherals, you will find them.",
                             DisplayOrder = 5,
                             Name = "Hobbies & free time"
                         });

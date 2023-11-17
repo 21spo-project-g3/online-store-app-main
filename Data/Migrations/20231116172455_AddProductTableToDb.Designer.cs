@@ -12,8 +12,8 @@ using online_store_app.Data;
 namespace online_store_app.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231116150953_UpdateProductTableToDbV2")]
-    partial class UpdateProductTableToDbV2
+    [Migration("20231116172455_AddProductTableToDb")]
+    partial class AddProductTableToDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -287,17 +287,12 @@ namespace online_store_app.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("EAN")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -305,13 +300,6 @@ namespace online_store_app.Data.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(12,2)");
-
-                    b.Property<string>("PriceUnit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SerialNumber")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
