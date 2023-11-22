@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using online_store_app.Data;
 
 #nullable disable
 
-namespace online_store_app.Data.Migrations
+namespace online_store_app.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231122031416_SeedTablesV3")]
+    partial class SeedTablesV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,6 +287,9 @@ namespace online_store_app.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -304,35 +310,110 @@ namespace online_store_app.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Description = "GeForce RTX 30 -sarjan grafiikkasuorittimet antavat äärimmäisen suorituskyvyn niin pelaajien kuin luovan työn tekijöidenkin käyttöön. Tehon salaisuus on Ampere – NVIDIAN toisen sukupolven RTX-arkkitehtuuri, jonka uudistetut RT- ja Tensor-ytimet sekä SM-monisuorittimet varmistavat tähän asti realistisimman säteenseurantagrafiikan ja huippuluokan tekoälytoiminnot",
                             EAN = 4711081309925L,
                             ImageUrl = "https://i.imgur.com/azEiXOi.png",
-                            Name = "Asus GeForce DUAL-RTX3060-O12G-V2",
+                            Name = "Asus GeForce DUAL-RTX3060-O12G-V2 Graphics card",
                             Price = 299.99m
                         },
                         new
                         {
                             Id = 2,
+                            CategoryId = 1,
                             Description = "TUF Gaming GeForce RTX 4080 -näytönohjaimen NVIDIA Ada Lovelace -arkkitehtuurin tukena on tehokas jäähdytys ja virransyöttö sekä suorituskyvyn turvaavat vahvistukset. Lataa, varmista ja valmistaudu voittoon.",
                             EAN = 4711081950745L,
                             ImageUrl = "https://i.imgur.com/agJa6nK.png",
-                            Name = "Asus GeForce TUF-RTX4080-16G-GAMING",
+                            Name = "Asus GeForce TUF-RTX4080-16G-GAMING Graphics card",
                             Price = 1369.99m
                         },
                         new
                         {
                             Id = 3,
+                            CategoryId = 1,
                             Description = "AMD Radeon RX 7800 -sarja perustuvat uraauurtavaan AMD RDNA 3 -arkkitehtuuriin, jossa on chiplet-tekniikka, ja ne tarjoavat seuraavan sukupolven suorituskyvyn, visuaalisuuden ja tehokkuuden 4K-tasolla ja sen yli. Radeon RX 7800 -sarjan grafiikassa on edistykselliset AMD RDNA 3 -laskentayksiköt, toisen sukupolven säteenseuranta ja uudet tekoälykiihdyttimet, jotka tuottavat uskomatonta suorituskykyä ja maksimoivat graafisen tarkkuuden.",
                             EAN = 4895106294349L,
                             ImageUrl = "https://i.imgur.com/LUvFWCe.png",
-                            Name = "Sapphire PULSE RX 7800 XT Gaming 16 Gt",
+                            Name = "Sapphire PULSE RX 7800 XT Gaming 16 Gt Graphics card",
                             Price = 619.99m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            Description = "PS5-konsoli tarjoaa uusia, odottamattomia pelimahdollisuuksia. Nauti salamannopeasta latauksesta, erittäin nopeasta SSD-asemasta ja mukaansatempaavista toiminnoista, kuten kosketuspalautteesta, mukautuvista liipaisimista, 3D-äänestä ja upouudesta PlayStation-pelien sukupolvesta.",
+                            EAN = 711719576778L,
+                            ImageUrl = "https://i.imgur.com/lIqutAw.png",
+                            Name = "Sony PlayStation 5 (PS5) Call of Duty: Modern Warfare III Console & Game bundle",
+                            Price = 489.99m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 2,
+                            Description = "Microsoft Xbox Series X tarjoaa tehokkaimman Xbox-konsolin mitä olemme nähneet. Xbox Series X tarjoaa konsoleille ennennäkemätöntä tehoa ja suorituskykyä upeassa paketissa. Konsoli on varustettu levyasemalla joten voit nauttia digitaalisten pelien lisäksi myös fyysisistä peleistä levyillä.",
+                            EAN = 889842640809L,
+                            ImageUrl = "https://i.imgur.com/Ty8T94a.png",
+                            Name = "Microsoft Xbox Series X Console",
+                            Price = 438.99m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 2,
+                            Description = "PlayStation 5's DualSense wireless controller features haptic feedback that brings you closer to games, dynamically adaptive triggers and a built-in microphone – all in the same iconic controller.",
+                            EAN = 711719399506L,
+                            ImageUrl = "https://i.imgur.com/MwlBwh7.png",
+                            Name = "Sony DualSense Gaming Controller, white, PS5",
+                            Price = 49.99m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 3,
+                            Description = "TV",
+                            EAN = 8806094853483L,
+                            ImageUrl = "https://i.imgur.com/q6S6KYM.png",
+                            Name = "Samsung CU7172 55\" 4K LED TV",
+                            Price = 399.99m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 4,
+                            Description = "5G phone",
+                            EAN = 6921815625674L,
+                            ImageUrl = "https://i.imgur.com/yfFoVkO.png",
+                            Name = "OnePlus Open 5G Phone, 512/16 Gb, green",
+                            Price = 1799.99m
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 4,
+                            Description = "5G phone",
+                            EAN = 194252903834L,
+                            ImageUrl = "https://i.imgur.com/vLN5QGj.png",
+                            Name = "Apple iPhone 13 128GB Phone, Midnight",
+                            Price = 668.99m
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 5,
+                            Description = "free time",
+                            EAN = 6438148036997L,
+                            ImageUrl = "https://i.imgur.com/WKvJ5s8.png",
+                            Name = "Baana Flesu 26\" SE fatbike",
+                            Price = 399.99m
                         });
                 });
 
@@ -385,6 +466,17 @@ namespace online_store_app.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("online_store_app.Models.Product", b =>
+                {
+                    b.HasOne("online_store_app.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }
