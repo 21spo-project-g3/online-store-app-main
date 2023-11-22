@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace online_store_app.Models
 {
@@ -15,5 +16,9 @@ namespace online_store_app.Models
         [Required]
         public double Price { get; set; } = 0.00;
         public string ImageUrl { get; set; } = string.Empty;
+
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

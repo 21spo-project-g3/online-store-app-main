@@ -57,23 +57,21 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Product" asp-action="Index">Technology</a>
+                            <a class="nav-link" asp-controller="Category" asp-action="Technology">Technology</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Gaming">Gaming</a>
+                            <a class="nav-link" asp-controller="Category" asp-action="Gaming">Gaming</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Picture_sound">Picture & sound</a>
+                            <a class="nav-link" asp-controller="Category" asp-action="Picture_and_sound">Picture & sound</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Phones_tablets">Phones & tablets</a>
+                            <a class="nav-link" asp-controller="Category" asp-action="Phones_and_tablets">Phones & tablets</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Hobbies_free_time">Hobbies & free time</a>
+                            <a class="nav-link" asp-controller="Category" asp-action="Hobbies_and_free_time">Hobbies & free time</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Category" asp-action="Index">Categories</a>
-                        </li>
+
                         <!-- Tämä näkyy vain admin käyttäjälle -->
                         @if (isAdmin)
                         {
