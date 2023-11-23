@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var isAdmin = User.Identity.Name == "admin@admin";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,7 +10,6 @@
     <title>@ViewData["Title"] - shop like a trillionaire!</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/online_store_app.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
@@ -20,41 +23,18 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <div class="navbar d-sm-inline-flex justify-content-between p-0">
-                    <div class="d-flex align-items-center">
-
-                        <!-- admin@admin käyttäjästä tehdään admin -->
-                        @{
-                            var isAdmin = User.Identity.Name == "admin@admin";
-                        }
-                        <!-- Näkyy vain admin käyttäjälle -->
-                        @if (isAdmin)
-                        {
-                            <p class="navbar-text ms-3">Welcome, Admin!</p>
-                        }
-                    </div>
-                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                        <button type="button" class="btn btn-info disabled">
-                            <i class="bi bi-person"></i>
-                        </button>
-                        <div class="btn-group" role="group">
-                            <button id="btnGroupDrop3" type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop3" style="">
-                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="navbar p-0">
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 p-0">
+        <nav class="navbar navbar-expand-md navbar-toggleable-md border-bottom box-shadow mb-3 p-0">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" 
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-md-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Category" asp-action="Technology">Technology</a>
@@ -71,7 +51,6 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Category" asp-action="Hobbies_and_free_time">Hobbies & free time</a>
                         </li>
-
                         <!-- Tämä näkyy vain admin käyttäjälle -->
                         @if (isAdmin)
                         {

@@ -10,7 +10,7 @@ namespace online_store_app.Controllers
         {
             _db = db;
         }
-
+        
         public IActionResult Technology() 
         {
             var technologyProducts = _db.GetProductsByCategory("Technology");
@@ -44,5 +44,6 @@ namespace online_store_app.Controllers
             var hnftProducts = _db.GetProductsByCategory("Hobbies & free time");
             return View(hnftProducts);
         }
+        
     }
 }

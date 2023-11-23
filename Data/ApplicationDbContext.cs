@@ -14,7 +14,7 @@ namespace online_store_app.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-
+        
         public List<Product> GetProductsByCategory(string categoryName)
         {
             var products = Products
