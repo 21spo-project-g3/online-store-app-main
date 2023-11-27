@@ -15,3 +15,24 @@
     <p>@Model.EAN</p>
     <img class="card-img-top p-2" src="@Model.ImageUrl" alt="Product Image">
 </div>
+
+@if (Model.Reviews != null && Model.Reviews.Any())
+{
+    <h2>Product Reviews</h2>
+    @foreach (var review in Model.Reviews)
+    {
+        <div>
+            <p>Rating: @review.Rating</p>
+            <p>Content: @review.Content</p>
+            <p>User ID: @review.UserId</p>
+            <p>Created At: @review.CreatedAt</p>
+        </div>
+    }
+}
+else
+{
+    <p>No reviews for this product yet.</p>
+}
+
+<!-- Add the review link at the end of the view -->
+<a asp-controller="Product" asp-action="Review" asp-route-productId="@Model.Id">Review this product</a>
