@@ -1,2 +1,15 @@
-# online-store-app
-Basic web application for a online store where you can buy different items and add reviews for them.
+Matias Kauranen, Juhani Koski, Antti Kurkinen, Arttu Kääriäinen  
+Tietotekniikan tutkinto-ohjelma (Oamk)  
+(ID00BQ11 | TVT21SPO)
+
+# Turrbobuy - Sähköisen kaupankäynnin verkkoalusta
+
+## ESITTELY
+
+## OMINAISUUDET
+
+## TEKNOLOGIAT
+
+## DEMO
+
+## KÄYTTÖÖNOTTO
