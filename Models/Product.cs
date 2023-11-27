@@ -8,7 +8,7 @@ namespace online_store_app.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public long EAN { get; set; } = 0;
+        public string EAN { get; set; } = string.Empty;
         [Required]
         public string Name { get; set; } = string.Empty;
         [Required]

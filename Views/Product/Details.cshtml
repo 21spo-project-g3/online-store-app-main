@@ -1,0 +1,17 @@
+﻿@model online_store_app.Models.Product
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover" asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item"><a class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover" asp-controller="Category" asp-action="@Model.Category.Name">@Model.Category.Name</a></li>
+        <li class="breadcrumb-item fw-bolder active" aria-current="page">Product @Model.EAN</li>
+    </ol>
+</nav>
+
+<div>
+    <h1>@Model.Name</h1>
+    <p>@Model.Description</p>
+    <p>@Model.Price€</p>
+    <p>@Model.EAN</p>
+    <img class="card-img-top p-2" src="@Model.ImageUrl" alt="Product Image">
+</div>
