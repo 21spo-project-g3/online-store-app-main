@@ -35,4 +35,4 @@ else
 }
 
 <!-- Add the review link at the end of the view -->
-<a asp-controller="Product" asp-action="Review" asp-route-productId="@Model.Id">Review this product</a>
+<a asp-controller="Product" asp-action="Review" asp-route-productId="@Model.Id" asp-route-ean="@Model.EAN">Review this product</a>
