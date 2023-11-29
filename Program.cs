@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using online_store_app.Data;
+using online_store_app.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.User.RequireUniqueEmail = false; // Remove email uniqueness requirement
 })
 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddScoped<ReviewService>(); // Add this line to register ReviewService
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

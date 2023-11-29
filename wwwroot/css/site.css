@@ -26,6 +26,11 @@ body {
     height: 50px;
 }
 
+.review-box {
+    border: 1px solid #ddd; 
+    padding: 10px; 
+    margin-bottom: 10px; 
+
 .navbar-nav{
     flex-direction:row !important;
 }

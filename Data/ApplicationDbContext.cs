@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using online_store_app.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace online_store_app.Data
 {
@@ -14,7 +16,8 @@ namespace online_store_app.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        
+        public DbSet<ProductReview> ProductReviews { get; set; }
+
         public List<Product> GetProductsByCategory(string categoryName)
         {
             var products = Products
@@ -33,7 +36,7 @@ namespace online_store_app.Data
                 new Category { Id = 3, Name = "Picture & sound", DisplayOrder = 3 },
                 new Category { Id = 4, Name = "Phones & tablets", DisplayOrder = 4 },
                 new Category { Id = 5, Name = "Hobbies & free time", DisplayOrder = 5 }
-                );
+            );
 
             modelBuilder.Entity<Product>().HasData(
                 new Product
@@ -141,6 +144,16 @@ namespace online_store_app.Data
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
                 .HasColumnType("decimal(12,2)");
+
+            modelBuilder.Entity<ProductReview>()
+                .Property(pr => pr.Rating)
+                .IsRequired();
+
+            modelBuilder.Entity<ProductReview>()
+                .HasOne(pr => pr.Product)
+                .WithMany(p => p.Reviews)
+                .HasForeignKey(pr => pr.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
