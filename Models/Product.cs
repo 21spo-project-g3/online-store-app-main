@@ -22,6 +22,9 @@ namespace online_store_app.Models
         public double Price { get; set; } = 0.00;
 
         public string ImageUrl { get; set; } = string.Empty;
+        
+        [Required]
+        public int Quantity { get; set; }
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }

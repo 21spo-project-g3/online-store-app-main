@@ -1,0 +1,30 @@
+﻿@model List<online_store_app.Models.Product>
+
+<h2>Inventory Management</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td style="color: @(product.Quantity < 5 ? "red" : "black")">@product.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No products with low quantity.</p>
+}
+
+<a asp-action="Index" asp-controller="Home">Back to Main Menu</a>

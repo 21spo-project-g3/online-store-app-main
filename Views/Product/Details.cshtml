@@ -13,8 +13,10 @@
     <p>@Model.Description</p>
     <p>@Model.Price€</p>
     <p>@Model.EAN</p>
+    <p>Quantity: @Model.Quantity</p>
     <img class="card-img-top p-2" src="@Model.ImageUrl" alt="Product Image">
 </div>
+
 
 @if (Model.Reviews != null && Model.Reviews.Any())
 {
