@@ -30,5 +30,12 @@ namespace online_store_app.Models
         public string UserId { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now; // Set a default value or handle it in the database
+
+        public ProductReview()
+        {
+            Title = string.Empty;
+            Content = string.Empty;
+            // Assuming Product and UserId have default values or are initialized appropriately.
+        }
     }
 }

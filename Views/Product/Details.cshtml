@@ -21,11 +21,12 @@
     <h2>Product Reviews</h2>
     @foreach (var review in Model.Reviews)
     {
-        <div>
-            <p>Rating: @review.Rating</p>
-            <p>Content: @review.Content</p>
-            <p>User ID: @review.UserId</p>
-            <p>Created At: @review.CreatedAt</p>
+        <div class="review-box">
+            <p>Rating: @review.Rating Out Of 5</p>
+            <p>Title: @review.Title</p>
+            <p>Comment: @review.Content</p>
+            @* <p>User ID: @review.UserId</p> *@
+            <p>Date: @review.CreatedAt</p>
         </div>
     }
 }
@@ -33,6 +34,7 @@ else
 {
     <p>No reviews for this product yet.</p>
 }
+
 
 <!-- Add the review link at the end of the view -->
 <a asp-controller="Product" asp-action="Review" asp-route-productId="@Model.Id" asp-route-ean="@Model.EAN">Review this product</a>
