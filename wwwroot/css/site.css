@@ -27,10 +27,34 @@ body {
 }
 
 .review-box {
-    border: 1px solid #ddd; 
-    padding: 10px; 
-    margin-bottom: 10px; 
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
 
 .navbar-nav{
     flex-direction:row !important;
+}
+
+p-price {
+    color: orangered;
+    font-weight: 900;
+    font-family: Quicksand;
+}
+
+.detail-card-title {
+    font-family: Roboto;
+    color: rgb(227, 16, 27) !important;
+    font-weight: 600;
+}
+
+.card-link:hover,
+.card-link:visited,
+.card-link:link {
+    text-decoration: none;
+}
+
+.card-link:hover .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.2s ease-in-out;
 }

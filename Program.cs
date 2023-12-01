@@ -6,8 +6,10 @@ using online_store_app.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure the connection string
-var connectionString = builder.Configuration.GetConnectionString("AZURE_SQL_PRODUCTION")
-                       ?? throw new InvalidOperationException("Connection string 'AZURE_SQL_PRODUCTION' not found.");
+var connectionString = builder.Configuration.GetConnectionString("prod")
+                       ?? throw new InvalidOperationException("Connection string not found.");
+
+// Connectionstring variables:  local        dev         prod
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
