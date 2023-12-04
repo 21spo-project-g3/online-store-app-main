@@ -1,5 +1,7 @@
-﻿@{
+﻿<!-- Pages/Shared/_Layout.cshtml -->
+@{
     var isAdmin = User.Identity.Name == "admin@admin";
+    var lowQuantityProductsCount = ViewData["LowQuantityProductsCount"] as int?;
 }
 
 <!DOCTYPE html>
@@ -22,6 +24,14 @@
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
+
+                    <!-- Display alert for low quantity products if the user is admin and there are low quantity products -->
+                    @if (isAdmin && lowQuantityProductsCount.HasValue && lowQuantityProductsCount.Value > 0)
+                    {
+                        <div class="alert alert-danger ml-3" role="alert">
+                            @lowQuantityProductsCount.Value products are low on quantity!
+                        </div>
+                    }
                 </form>
                 <div class="navbar p-0">
                     <partial name="_LoginPartial" />
