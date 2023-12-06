@@ -33,6 +33,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
 builder.Services.AddScoped<ReviewService>(); // Add this line to register ReviewService
 
+// Add Authorization policies
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireUserName("admin@admin"));
+});
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 

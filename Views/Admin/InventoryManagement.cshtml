@@ -1,0 +1,40 @@
+﻿@model List<online_store_app.Models.Product>
+
+<h2>Inventory Management</h2>
+
+<form method="post" asp-action="UpdateQuantities">
+    @if (Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var product = Model[i];
+                    <tr>
+                        <td>@product.Name</td>
+                        <td style="color: @(product.Quantity < 5 ? "red" : "black")">
+                            <input type="number" name="quantities[@i]" value="@product.Quantity" />
+                        </td>
+                        <td>
+                            <input type="hidden" name="products[@i].Id" value="@product.Id" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Update Quantities</button>
+    }
+    else
+    {
+        <p>No products with low quantity.</p>
+    }
+</form>
+
+<a asp-action="Index" asp-controller="Home">Back to Main Menu</a>

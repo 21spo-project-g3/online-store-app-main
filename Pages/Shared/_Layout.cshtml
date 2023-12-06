@@ -1,5 +1,7 @@
-﻿@{
+﻿<!-- Pages/Shared/_Layout.cshtml -->
+@{
     var isAdmin = User.Identity.Name == "admin@admin";
+    var lowQuantityProductsCount = ViewData["LowQuantityProductsCount"] as int?;
 }
 
 <!DOCTYPE html>
@@ -24,6 +26,13 @@
                     <button class="btn btn-outline-success" type="submit">
                         <i class="bi bi-search"></i>
                     </button>
+                    <!-- Display alert for low quantity products if the user is admin and there are low quantity products -->
+                    @if (isAdmin && lowQuantityProductsCount.HasValue && lowQuantityProductsCount.Value > 0)
+                    {
+                        <div class="alert alert-danger ml-3" role="alert">
+                            @lowQuantityProductsCount.Value products are low on quantity!
+                        </div>
+                    }
                 </form>
                 <div class="navbar p-0">
                     <partial name="_LoginPartial" />
@@ -32,7 +41,7 @@
         </nav>
         <nav class="navbar navbar-expand-md navbar-toggleable-md border-bottom box-shadow p-0">
             <div class="container">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -58,6 +67,10 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-danger" asp-area="" asp-page="/AdminConsole">Admin console</a>
+                            </li>
+                            <!-- Add Inventory Management button here -->
+                            <li class="nav-item">
+                                <a class="nav-link text-info" asp-controller="Admin" asp-action="InventoryManagement">Inventory Management</a>
                             </li>
                         }
                     </ul>
