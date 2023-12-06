@@ -23,8 +23,9 @@
                 </a>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-
+                    <button class="btn btn-outline-success" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
                     <!-- Display alert for low quantity products if the user is admin and there are low quantity products -->
                     @if (isAdmin && lowQuantityProductsCount.HasValue && lowQuantityProductsCount.Value > 0)
                     {
@@ -38,7 +39,7 @@
                 </div>
             </div>
         </nav>
-        <nav class="navbar navbar-expand-md navbar-toggleable-md border-bottom box-shadow mb-3 p-0">
+        <nav class="navbar navbar-expand-md navbar-toggleable-md border-bottom box-shadow p-0">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +78,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container mt-3">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
