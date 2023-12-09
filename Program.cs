@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("prod")
                        ?? throw new InvalidOperationException("Connection string not found.");
 
-// Connectionstring variables:  local        dev         prod
+// Connectionstring variables:  local   juhku   dev   prod
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -17,7 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
 

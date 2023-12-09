@@ -3,6 +3,20 @@
     ViewData["Title"] = Model.Name;
 }
 
+<script>
+    function addToCart(Id) {
+        // Check if the cart exists in local storage
+        let cart = localStorage.getItem('cart');
+        cart = cart ? JSON.parse(cart) : [];
+
+        // Add the selected product ID to the cart
+        cart.push(Id);
+
+        // Update the cart in local storage
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+</script>
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover" 
@@ -15,9 +29,15 @@
 
 <div class="container">
     <div class="row">
+        <!-- Product Title -->
+        <div class="col-lg-12">
+            <div class="h-100">
+                <p class="mb-0">@Model.Name</p>
+            </div>
+        </div>
         <!-- Image Section -->
         <div class="col-lg-9 align-items-center d-flex justify-content-center">
-            <img src="@Model.ImageUrl" class="" alt="Product Image" style="height:600px;object-fit:contain;">
+            <img src="@Model.ImageUrl" class="h-100 img-fluid" alt="Product Image" style="object-fit:contain;">
         </div>
         <!-- Right Side - Details -->
         <div class="col-lg-3">
@@ -35,8 +55,8 @@
                 <div class="col-lg-12 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-text">Available in stock: @Model.Quantity</h5>
-                            <button type="button" class="btn btn-info">Add to Cart</button>
+                            <h6 class="card-text">Warehouse availability: @Model.Quantity</h6>
+                            <button type="button" onclick="addToCart('@Model.Id')" class="btn btn-info">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -52,8 +72,8 @@
             </div>
         </div>
         <!-- Product Description -->
-        <div class="">
-            <div class="">
+        <div class="col-lg-12 mb-3">
+            <div class="h-100 mt-3">
                 <p class="card-title fs-4">@Model.Description</p>
             </div>
         </div>
