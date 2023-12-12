@@ -1,4 +1,5 @@
-﻿@model List<online_store_app.Models.Product>
+﻿<!-- Updated InventoryManagement.cshtml -->
+@model List<online_store_app.Models.Product>
 
 <h2>Inventory Management</h2>
 
@@ -10,6 +11,7 @@
                 <tr>
                     <th>Product Name</th>
                     <th>Quantity</th>
+                    <th>Sale Information</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -23,13 +25,23 @@
                             <input type="number" name="quantities[@i]" value="@product.Quantity" />
                         </td>
                         <td>
+                            <!-- Dropdown menu for IsOnSale -->
+                            <select name="products[@i].IsOnSale" id="isOnSale_@i">
+                                <option value="false" selected="@(!product.IsOnSale).ToString().ToLower()">False</option>
+                                <option value="true" selected="@product.IsOnSale.ToString().ToLower()">True</option>
+                            </select>
+                            <br />
+                            <label for="salePercentage_@i">Sale Percentage:</label>
+                            <input type="number" name="products[@i].SalePercentage" id="salePercentage_@i" step="0.01" value="@product.SalePercentage" />
+                        </td>
+                        <td>
                             <input type="hidden" name="products[@i].Id" value="@product.Id" />
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-        <button type="submit" class="btn btn-primary">Update Quantities</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     }
     else
     {

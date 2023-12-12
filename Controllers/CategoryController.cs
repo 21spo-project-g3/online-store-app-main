@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// Controllers/CategoryController.cs
+using Microsoft.AspNetCore.Mvc;
 using online_store_app.Data;
 
 namespace online_store_app.Controllers

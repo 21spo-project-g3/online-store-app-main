@@ -1,14 +1,19 @@
-﻿@model online_store_app.Models.Product
+﻿﻿<!-- Views/Product/Details.cshtml -->
+@model online_store_app.Models.Product
 @{
     ViewData["Title"] = Model.Name;
 }
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover" 
-            asp-controller="Home" asp-action="Index">Home</a></li>
-        <li class="breadcrumb-item"><a class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover" 
-            asp-controller="Category" asp-action="@Model.Category.Name">@Model.Category.Name</a></li>
+        <li class="breadcrumb-item">
+            <a class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover"
+               asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover"
+               asp-controller="Category" asp-action="@Model.Category.Name">@Model.Category.Name</a>
+        </li>
         <li class="breadcrumb-item fw-bolder active" aria-current="page">Product @Model.EAN</li>
     </ol>
 </nav>
@@ -27,10 +32,28 @@
                     <div class="card h-100">
                         <div class="card-body">
                             <p class="card-subtitle fs-5">Price vat 24%</p>
-                            <h5 class="card-title fs-1 detail-card-title">@Model.Price€</h5>
+                            <h5 class="card-title fs-1 detail-card-title">
+                                @{
+                                    double adjustedPrice = Model.AdjustedPrice;
+                                }
+                                @if (Model.IsOnSale)
+                                {
+                                    <span class="text-danger"><s>@Model.Price</s></span>
+                                    <br />
+                                    <span class="text-success">
+                                        @string.Format("{0:0.00}", adjustedPrice)
+                                        (@string.Format("{0:0} % Off", Model.SalePercentage))
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span>@Model.Price</span>
+                                }
+                            </h5>
                         </div>
                     </div>
                 </div>
+
                 <!-- Shopping Cart -->
                 <div class="col-lg-12 mb-3">
                     <div class="card h-100">
@@ -52,32 +75,41 @@
             </div>
         </div>
         <!-- Product Description -->
-        <div class="">
-            <div class="">
-                <p class="card-title fs-4">@Model.Description</p>
+        <div class="col-lg-12 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Product Description</h5>
+                    <p class="card-text fs-4">@Model.Description</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@if (Model.Reviews != null && Model.Reviews.Any())
-{
-    <h2>Product Reviews</h2>
-    @foreach (var review in Model.Reviews)
+    @if (Model.Reviews != null && Model.Reviews.Any())
     {
-        <div class="review-box">
-            <p>Rating: @review.Rating Out Of 5</p>
-            <p>Title: @review.Title</p>
-            <p>Comment: @review.Content</p>
-            @* <p>User ID: @review.UserId</p> *@
-            <p>Date: @review.CreatedAt</p>
+        <div class="col-lg-12 mb-3">
+            <h2>Product Reviews</h2>
+            @foreach (var review in Model.Reviews)
+            {
+                <div class="review-box">
+                    <p>Rating: @review.Rating Out Of 5</p>
+                    <p>Title: @review.Title</p>
+                    <p>Comment: @review.Content</p>
+                    @* <p>User ID: @review.UserId</p> *@
+                    <p>Date: @review.CreatedAt</p>
+                </div>
+            }
         </div>
     }
-}
-else
-{
-    <p>No reviews for this product yet.</p>
-}
+    else
+    {
+        <div class="col-lg-12 mb-3">
+            <p>No reviews for this product yet.</p>
+        </div>
+    }
 
-<!-- Add the review link at the end of the view -->
-<a asp-controller="Product" asp-action="Review" asp-route-productId="@Model.Id" asp-route-ean="@Model.EAN">Review this product</a>
+    <!-- Add the review link at the end of the view -->
+    <div class="col-lg-12 mb-3">
+        <a asp-controller="Product" asp-action="Review" asp-route-productId="@Model.Id" asp-route-ean="@Model.EAN">Review this product</a>
+    </div>
+</div>
