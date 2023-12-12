@@ -12,8 +12,8 @@ using online_store_app.Data;
 namespace online_store_app.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231122031416_SeedTablesV3")]
-    partial class SeedTablesV3
+    [Migration("20231212143628_InitialSetup")]
+    partial class InitialSetup
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,71 +75,6 @@ namespace online_store_app.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -227,6 +162,106 @@ namespace online_store_app.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("online_store_app.Data.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("online_store_app.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("online_store_app.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -287,6 +322,9 @@ namespace online_store_app.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<double?>("AverageRating")
+                        .HasColumnType("float");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -294,8 +332,9 @@ namespace online_store_app.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("EAN")
-                        .HasColumnType("bigint");
+                    b.Property<string>("EAN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -308,6 +347,9 @@ namespace online_store_app.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(12,2)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -319,102 +361,151 @@ namespace online_store_app.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            Description = "GeForce RTX 30 -sarjan grafiikkasuorittimet antavat äärimmäisen suorituskyvyn niin pelaajien kuin luovan työn tekijöidenkin käyttöön. Tehon salaisuus on Ampere – NVIDIAN toisen sukupolven RTX-arkkitehtuuri, jonka uudistetut RT- ja Tensor-ytimet sekä SM-monisuorittimet varmistavat tähän asti realistisimman säteenseurantagrafiikan ja huippuluokan tekoälytoiminnot",
-                            EAN = 4711081309925L,
+                            Description = "GeForce RTX 30 series graphics processors provide extreme performance for both gamers and creative workers. The secret to power is Ampere - NVIDIA's second-generation RTX architecture, with renewed RT and Tensor cores and SM multiprocessors ensuring the most realistic ray-tracing graphics and state-of-the-art AI functions yet",
+                            EAN = "4711081309925",
                             ImageUrl = "https://i.imgur.com/azEiXOi.png",
                             Name = "Asus GeForce DUAL-RTX3060-O12G-V2 Graphics card",
-                            Price = 299.99m
+                            Price = 299.99m,
+                            Quantity = 0
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 1,
-                            Description = "TUF Gaming GeForce RTX 4080 -näytönohjaimen NVIDIA Ada Lovelace -arkkitehtuurin tukena on tehokas jäähdytys ja virransyöttö sekä suorituskyvyn turvaavat vahvistukset. Lataa, varmista ja valmistaudu voittoon.",
-                            EAN = 4711081950745L,
+                            Description = "The NVIDIA Ada Lovelace architecture of the TUF Gaming GeForce RTX 4080 graphics card is supported by efficient cooling and power supply, as well as performance-enhancing reinforcements. Download, secure and prepare to win.",
+                            EAN = "4711081950745",
                             ImageUrl = "https://i.imgur.com/agJa6nK.png",
                             Name = "Asus GeForce TUF-RTX4080-16G-GAMING Graphics card",
-                            Price = 1369.99m
+                            Price = 1369.99m,
+                            Quantity = 0
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 1,
-                            Description = "AMD Radeon RX 7800 -sarja perustuvat uraauurtavaan AMD RDNA 3 -arkkitehtuuriin, jossa on chiplet-tekniikka, ja ne tarjoavat seuraavan sukupolven suorituskyvyn, visuaalisuuden ja tehokkuuden 4K-tasolla ja sen yli. Radeon RX 7800 -sarjan grafiikassa on edistykselliset AMD RDNA 3 -laskentayksiköt, toisen sukupolven säteenseuranta ja uudet tekoälykiihdyttimet, jotka tuottavat uskomatonta suorituskykyä ja maksimoivat graafisen tarkkuuden.",
-                            EAN = 4895106294349L,
+                            Description = "Based on the groundbreaking AMD RDNA 3 architecture with chiplet technology, the AMD Radeon RX 7800 series delivers next-generation performance, visuals and efficiency at 4K and beyond. The Radeon RX 7800 series graphics feature advanced AMD RDNA 3 compute units, second-generation ray tracing, and new AI accelerators to deliver incredible performance and maximize graphic fidelity.",
+                            EAN = "4895106294349",
                             ImageUrl = "https://i.imgur.com/LUvFWCe.png",
                             Name = "Sapphire PULSE RX 7800 XT Gaming 16 Gt Graphics card",
-                            Price = 619.99m
+                            Price = 619.99m,
+                            Quantity = 0
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 2,
-                            Description = "PS5-konsoli tarjoaa uusia, odottamattomia pelimahdollisuuksia. Nauti salamannopeasta latauksesta, erittäin nopeasta SSD-asemasta ja mukaansatempaavista toiminnoista, kuten kosketuspalautteesta, mukautuvista liipaisimista, 3D-äänestä ja upouudesta PlayStation-pelien sukupolvesta.",
-                            EAN = 711719576778L,
+                            Description = "The PS5 console offers new, unexpected gaming possibilities. Enjoy lightning-fast charging, ultra-fast SSD drive and immersive features such as haptic feedback, adaptive triggers, 3D sound and a brand new generation of PlayStation games.",
+                            EAN = "0711719576778",
                             ImageUrl = "https://i.imgur.com/lIqutAw.png",
                             Name = "Sony PlayStation 5 (PS5) Call of Duty: Modern Warfare III Console & Game bundle",
-                            Price = 489.99m
+                            Price = 489.99m,
+                            Quantity = 0
                         },
                         new
                         {
                             Id = 5,
                             CategoryId = 2,
-                            Description = "Microsoft Xbox Series X tarjoaa tehokkaimman Xbox-konsolin mitä olemme nähneet. Xbox Series X tarjoaa konsoleille ennennäkemätöntä tehoa ja suorituskykyä upeassa paketissa. Konsoli on varustettu levyasemalla joten voit nauttia digitaalisten pelien lisäksi myös fyysisistä peleistä levyillä.",
-                            EAN = 889842640809L,
+                            Description = "The Microsoft Xbox Series X offers the most powerful Xbox console we've seen. Xbox Series X offers consoles unprecedented power and performance in a stunning package. The console is equipped with a disc drive, so you can enjoy not only digital games but also physical games on discs.",
+                            EAN = "0889842640809",
                             ImageUrl = "https://i.imgur.com/Ty8T94a.png",
                             Name = "Microsoft Xbox Series X Console",
-                            Price = 438.99m
+                            Price = 438.99m,
+                            Quantity = 0
                         },
                         new
                         {
                             Id = 6,
                             CategoryId = 2,
                             Description = "PlayStation 5's DualSense wireless controller features haptic feedback that brings you closer to games, dynamically adaptive triggers and a built-in microphone – all in the same iconic controller.",
-                            EAN = 711719399506L,
+                            EAN = "0711719399506",
                             ImageUrl = "https://i.imgur.com/MwlBwh7.png",
                             Name = "Sony DualSense Gaming Controller, white, PS5",
-                            Price = 49.99m
+                            Price = 49.99m,
+                            Quantity = 0
                         },
                         new
                         {
                             Id = 7,
                             CategoryId = 3,
-                            Description = "TV",
-                            EAN = 8806094853483L,
+                            Description = "Samsung CU7172 / CU7192 in 55 inch size is Samsung's Crystal UHD TV. The high-definition 4K UHD resolution really comes to life when you watch HDR material from the most popular streaming services supported by the Tizen 2023 operating system.",
+                            EAN = "8806094853483",
                             ImageUrl = "https://i.imgur.com/q6S6KYM.png",
                             Name = "Samsung CU7172 55\" 4K LED TV",
-                            Price = 399.99m
+                            Price = 399.99m,
+                            Quantity = 0
                         },
                         new
                         {
                             Id = 8,
                             CategoryId = 4,
-                            Description = "5G phone",
-                            EAN = 6921815625674L,
+                            Description = "OnePlus Open is a phone with a folding screen that does not compromise on the camera. The revolutionary Hasselblad mobile camera system with three Pro-level cameras, highlighted by Sony's new LYTIA \"Pixel Stacked\" sensor. The OnePlus Open's camera capabilities have not been compromised, even in a compact and slim size. Three cameras, each of which stands at its best alongside conventional non-folding flagship phones. You can be sure that every moment and angle can be captured with uncompromising clarity.",
+                            EAN = "6921815625674",
                             ImageUrl = "https://i.imgur.com/yfFoVkO.png",
                             Name = "OnePlus Open 5G Phone, 512/16 Gb, green",
-                            Price = 1799.99m
+                            Price = 1799.99m,
+                            Quantity = 0
                         },
                         new
                         {
                             Id = 9,
                             CategoryId = 4,
-                            Description = "5G phone",
-                            EAN = 194252903834L,
+                            Description = "Apple iPhone 13. The most advanced iPhone dual camera system. Lightning fast A15 Bionic chip. Big leap in battery life. Durable construction. Super fast 5G. And a brighter Super Retina XDR display.",
+                            EAN = "0194252903834",
                             ImageUrl = "https://i.imgur.com/vLN5QGj.png",
                             Name = "Apple iPhone 13 128GB Phone, Midnight",
-                            Price = 668.99m
+                            Price = 668.99m,
+                            Quantity = 0
                         },
                         new
                         {
                             Id = 10,
                             CategoryId = 5,
-                            Description = "free time",
-                            EAN = 6438148036997L,
+                            Description = "Baana Flesu has been striving to be the most handsome fat bike in town for seven years, always with a little improvement!\r\nA good and affordable fatbike with an excellent price-quality ratio keeps things simple and is still badass. The sturdy aluminum is a durable and light frame compared to the steel of the cheapest fat bikes. The suspension provided by the thick tires makes the ride smooth, so you don't need a separate suspension.",
+                            EAN = "6438148036997",
                             ImageUrl = "https://i.imgur.com/WKvJ5s8.png",
                             Name = "Baana Flesu 26\" SE fatbike",
-                            Price = 399.99m
+                            Price = 399.99m,
+                            Quantity = 0
                         });
+                });
+
+            modelBuilder.Entity("online_store_app.Models.ProductReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductReviews");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -428,7 +519,7 @@ namespace online_store_app.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("online_store_app.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -437,7 +528,7 @@ namespace online_store_app.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("online_store_app.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -452,7 +543,7 @@ namespace online_store_app.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("online_store_app.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -461,11 +552,22 @@ namespace online_store_app.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("online_store_app.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("online_store_app.Models.Address", b =>
+                {
+                    b.HasOne("online_store_app.Data.ApplicationUser", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("online_store_app.Models.Product", b =>
@@ -477,6 +579,27 @@ namespace online_store_app.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("online_store_app.Models.ProductReview", b =>
+                {
+                    b.HasOne("online_store_app.Models.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("online_store_app.Data.ApplicationUser", b =>
+                {
+                    b.Navigation("Addresses");
+                });
+
+            modelBuilder.Entity("online_store_app.Models.Product", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,6 +11,8 @@ namespace online_store_app.Data
 
         }
 
+        // public DbSet<ApplicationUser> Users {  get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductReview> ProductReviews { get; set; }
@@ -26,6 +28,13 @@ namespace online_store_app.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Address>()
+                .HasOne<ApplicationUser>(a => a.User)
+                .WithMany(u => u.Addresses)
+                .HasForeignKey(a => a.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Technology", DisplayOrder = 1 },

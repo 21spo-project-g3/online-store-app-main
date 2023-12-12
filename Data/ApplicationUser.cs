@@ -5,6 +5,6 @@ namespace online_store_app.Data
 {
     public class ApplicationUser : IdentityUser
     {
-        public Address UserAddress { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

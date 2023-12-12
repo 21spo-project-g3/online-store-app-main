@@ -254,10 +254,9 @@ namespace online_store_app.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("online_store_app.Models.Category", b =>
@@ -560,8 +559,8 @@ namespace online_store_app.Migrations
             modelBuilder.Entity("online_store_app.Models.Address", b =>
                 {
                     b.HasOne("online_store_app.Data.ApplicationUser", "User")
-                        .WithOne("UserAddress")
-                        .HasForeignKey("online_store_app.Models.Address", "UserId")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -592,8 +591,7 @@ namespace online_store_app.Migrations
 
             modelBuilder.Entity("online_store_app.Data.ApplicationUser", b =>
                 {
-                    b.Navigation("UserAddress")
-                        .IsRequired();
+                    b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("online_store_app.Models.Product", b =>

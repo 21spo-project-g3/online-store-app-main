@@ -1,6 +1,5 @@
 ﻿using online_store_app.Data;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace online_store_app.Models
 {
@@ -12,7 +11,6 @@ namespace online_store_app.Models
         [Required]
         public string UserId { get; set; }
 
-        [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
         public string StreetAddress { get; set; } = string.Empty;
