@@ -42,6 +42,10 @@ public class AdminController : Controller
             {
                 // Update the quantity
                 product.Quantity = newQuantity;
+
+                // Update sale information
+                product.IsOnSale = products[i]?.IsOnSale ?? false; // Default to false if IsOnSale is null
+                product.SalePercentage = products[i]?.SalePercentage ?? 0; // Default to 0 if SalePercentage is null
             }
         }
 

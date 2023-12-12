@@ -1,4 +1,5 @@
-﻿@model List<online_store_app.Models.Product>
+﻿<!-- Views/Shared/_CatalogLayout.cshtml -->
+@model List<online_store_app.Models.Product>
 
 <div class="album bg-body-tertiary">
     <div class="container">
@@ -7,12 +8,22 @@
             {
                 <div class="col">
                     <a class="card-link" href="@Url.Action("Details", "Product", new { ean = product.EAN })">
-                        <div class="card  h-100">
+                        <div class="card h-100">
                             <img class="card-img-top p-2" src="@product.ImageUrl" alt="Product Image" style="height:200px;width:100%;object-fit:contain;">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title" style="text-transform: none;">@product.Name</h5>
                                 <div class="mt-auto d-flex justify-content-between align-items-end">
-                                    <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem;">@product.Price€</p>
+                                    @if (product.IsOnSale)
+                                    {
+                                        // Calculate the discounted price
+                                        double discountedPrice = (double)product.Price - ((double)product.Price * (double)product.SalePercentage / 100);
+                                        string formattedDiscountedPrice = Math.Round(discountedPrice, 2).ToString("0.00");
+                                        <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: green;"><s>@product.Price€</s> @formattedDiscountedPrice€ (On Sale)</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem;">@product.Price€</p>
+                                    }
                                 </div>
                             </div>
                         </div>

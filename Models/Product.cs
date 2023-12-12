@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿//Models/Product.cs
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,6 +26,11 @@ namespace online_store_app.Models
         
         [Required]
         public int Quantity { get; set; }
+
+        public bool IsOnSale { get; set; }
+        public decimal SalePercentage { get; set; }
+
+        public double AdjustedPrice => IsOnSale ? Price - (Price * (double)SalePercentage / 100) : Price;
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
