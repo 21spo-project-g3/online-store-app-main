@@ -27,8 +27,8 @@
                         <td>
                             <!-- Dropdown menu for IsOnSale -->
                             <select name="products[@i].IsOnSale" id="isOnSale_@i">
-                                <option value="false" selected="@(product.IsOnSale ? "" : "selected")">False</option>
-                                <option value="true" selected="@(product.IsOnSale ? "selected" : "")">True</option>
+                                <option value="false" selected="@(!product.IsOnSale).ToString().ToLower()">False</option>
+                                <option value="true" selected="@product.IsOnSale.ToString().ToLower()">True</option>
                             </select>
                             <br />
                             <label for="salePercentage_@i">Sale Percentage:</label>
