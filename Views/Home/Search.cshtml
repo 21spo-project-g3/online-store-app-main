@@ -1,4 +1,4 @@
-﻿<!-- Views/Sale/Index.cshtml -->
+﻿<!-- Views/Product/Search.cshtml -->
 @model List<online_store_app.Models.Product>
 
 <div class="album bg-body-tertiary">
@@ -16,14 +16,15 @@
                                     @{
                                         if (product.IsOnSale)
                                         {
+                                            // Calculate the discounted price
                                             double discountedPrice = (double)product.Price - ((double)product.Price * (double)product.SalePercentage / 100);
                                             string formattedDiscountedPrice = Math.Round(discountedPrice, 2).ToString("0.00");
-                                            string roundedSalePercentage = Math.Round(product.SalePercentage).ToString(); // Round the sale percentage
-                                            <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: red;"><s style="color: red;">@product.Price€</s> <span style="color: green;">@formattedDiscountedPrice€</span> (<span style="color: green;">@roundedSalePercentage% Off</span>)</p>
+                                            string roundedSalePercentage = Math.Round(product.SalePercentage).ToString();
+                                            <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: red;"><s style="color: red;">@product.Price</s> <span style="color: green;">@formattedDiscountedPrice</span> (<span style="color: green;">@roundedSalePercentage% Off</span>)</p>
                                         }
                                         else
                                         {
-                                            <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: green;">@product.Price€</p>
+                                            <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: green;">@product.Price</p>
                                         }
                                     }
                                 </div>

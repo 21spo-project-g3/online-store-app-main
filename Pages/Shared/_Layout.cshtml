@@ -21,8 +21,8 @@
                 <a class="navbar-brand" asp-controller="home" asp-action="index">
                     <img id="main-logo" src="~/images/turrbobuy_logo.png" alt="Shoppis logo">
                 </a>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" method="get" action="@Url.Action("Search", "Home")">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">
                         <i class="bi bi-search"></i>
                     </button>
@@ -34,6 +34,7 @@
                         </div>
                     }
                 </form>
+
                 <div class="navbar p-0">
                     <partial name="_LoginPartial" />
                 </div>
