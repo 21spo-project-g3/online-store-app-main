@@ -6,7 +6,7 @@ using online_store_app.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure the connection string
-var connectionString = builder.Configuration.GetConnectionString("prod")
+var connectionString = builder.Configuration.GetConnectionString("dev")
                        ?? throw new InvalidOperationException("Connection string not found.");
 
 // Connectionstring variables:  local        dev         prod
