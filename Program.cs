@@ -6,10 +6,8 @@ using online_store_app.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure the connection string
-var connectionString = builder.Configuration.GetConnectionString("dev")
+var connectionString = builder.Configuration.GetConnectionString("production")
                        ?? throw new InvalidOperationException("Connection string not found.");
-
-// Connectionstring variables:  local        dev         prod
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
