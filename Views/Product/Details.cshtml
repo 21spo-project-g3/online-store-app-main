@@ -63,15 +63,18 @@
                     </div>
                 </div>
 
-                <!-- Shopping Cart -->
                 <div class="col-lg-12 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-text">Available in stock: @Model.Quantity</h5>
-                            <button type="button" class="btn btn-info">Add to Cart</button>
+                            <form method="post" asp-action="AddToCart" asp-controller="ShoppingCart">
+                                <input type="hidden" name="ean" value="@Model.EAN" />
+                                <button type="submit" class="btn btn-info">Add to Cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
+
                 <!-- Product Code -->
                 <div class="col-lg-12 mb-3">
                     <div class="card h-100">

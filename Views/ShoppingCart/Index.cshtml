@@ -1,8 +1,21 @@
 ﻿<!-- Views/ShoppingCart/Index.cshtml -->
-@{
-    ViewData["Title"] = "Shopping Cart";
+@model List<online_store_app.Models.ShoppingCart>
+
+<h1>Shopping Cart</h1>
+
+@if (Model != null && Model.Any())
+{
+    <ul>
+        @foreach (var cart in Model)
+        {
+            @foreach (var item in cart.Items)
+            {
+                <li>@item.Name - @item.AdjustedPrice</li>
+            }
+        }
+    </ul>
 }
-
-<h2>@ViewData["Title"]</h2>
-
-<p>Your shopping cart is currently empty.</p>
+else
+{
+    <p>Your shopping cart is empty.</p>
+}

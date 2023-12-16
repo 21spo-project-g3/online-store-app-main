@@ -1,6 +1,10 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using online_store_app.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using online_store_app.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,7 +42,9 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+
+// Add session services
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -57,6 +63,9 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Use session middleware
+app.UseSession();
 
 app.UseAuthorization();
 
