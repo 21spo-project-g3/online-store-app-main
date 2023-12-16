@@ -4,6 +4,15 @@
     ViewData["Title"] = Model.Name;
 }
 
+@using System.Text
+@using Microsoft.AspNetCore.Html
+
+<style>
+    .rating-stars {
+        color: #ffd700; /* Set the color of the stars to yellow */
+    }
+</style>
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -83,33 +92,64 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    @if (Model.Reviews != null && Model.Reviews.Any())
-    {
-        <div class="col-lg-12 mb-3">
-            <h2>Product Reviews</h2>
-            @foreach (var review in Model.Reviews)
-            {
-                <div class="review-box">
-                    <p>Rating: @review.Rating Out Of 5</p>
-                    <p>Title: @review.Title</p>
-                    <p>Comment: @review.Content</p>
-                    @* <p>User ID: @review.UserId</p> *@
-                    <p>Date: @review.CreatedAt</p>
+        @if (Model.Reviews != null && Model.Reviews.Any())
+        {
+            <div class="col-lg-12 mb-3">
+                <h2>Product Reviews</h2>
+                @foreach (var review in Model.Reviews)
+                {
+                    <div class="review-box">
+                        <p>Rating: @review.Rating out of 5</p>
+                        <p>Title: @review.Title</p>
+                        <p>Comment: @review.Content</p>
+                        <p>Date: @review.CreatedAt</p>
+                    </div>
+                }
+
+                <!-- Calculate and display the average rating using stars -->
+                @{
+                    double averageRating = Model.Reviews.Average(r => r.Rating);
+                    int roundedAverageRating = (int)Math.Round(averageRating);
+                }
+
+                <div class="average-rating">
+                    <p>Average Rating: <span class="rating-stars">@GetStarRating(roundedAverageRating)</span></p>
                 </div>
-            }
-        </div>
-    }
-    else
-    {
-        <div class="col-lg-12 mb-3">
-            <p>No reviews for this product yet.</p>
-        </div>
-    }
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-12 mb-3">
+                <p>No reviews for this product yet.</p>
+            </div>
+        }
 
-    <!-- Add the review link at the end of the view -->
-    <div class="col-lg-12 mb-3">
-        <a asp-controller="Product" asp-action="Review" asp-route-productId="@Model.Id" asp-route-ean="@Model.EAN">Review this product</a>
+        <!-- Add the review link at the end of the view -->
+        <div class="col-lg-12 mb-3">
+            <a asp-controller="Product" asp-action="Review" asp-route-productId="@Model.Id" asp-route-ean="@Model.EAN">Review this product</a>
+        </div>
     </div>
 </div>
+
+@functions {
+    // Function to get the star rating HTML based on the numeric rating
+    public HtmlString GetStarRating(int rating)
+    {
+        StringBuilder stars = new StringBuilder();
+        for (int i = 1; i <= 5; i++)
+        {
+            if (i <= rating)
+            {
+                // Display a yellow star for each full rating
+                stars.Append("<i class='bi bi-star-fill rating-stars'></i>");
+            }
+            else
+            {
+                // Display a grey star for the remaining empty ratings
+                stars.Append("<i class='bi bi-star rating-stars'></i>");
+            }
+        }
+        return new HtmlString(stars.ToString());
+    }
+}
