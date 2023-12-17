@@ -4,7 +4,7 @@ using online_store_app.Data;
 using online_store_app.Extensions; // Make sure to include the namespace
 using online_store_app.Models;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 public class ShoppingCartController : Controller
 {
@@ -32,13 +32,25 @@ public class ShoppingCartController : Controller
             var cart = HttpContext.Session.Get<ShoppingCart>("ShoppingCart") ?? new ShoppingCart();
 
             // If the cart is empty, set the timestamp
-            if (cart.Items.Count == 0)
+            if (cart.ProductQuantities.Count == 0)
             {
                 cart.CartTimestamp = DateTime.Now;
             }
 
-            cart.Items.Add(product);
-            HttpContext.Session.Set("ShoppingCart", cart);
+            // Decrease the quantity
+            if (cart.ProductQuantities.ContainsKey(product.Id) && cart.ProductQuantities[product.Id] > 0)
+            {
+                cart.ProductQuantities[product.Id]--;
+                HttpContext.Session.Set("ShoppingCart", cart);
+
+                // Update the quantity in the database
+                var dbProduct = _context.Products.FirstOrDefault(p => p.Id == product.Id);
+                if (dbProduct != null)
+                {
+                    dbProduct.Quantity = cart.ProductQuantities[product.Id];
+                    _context.SaveChanges();
+                }
+            }
         }
 
         return RedirectToAction("Index");
@@ -47,16 +59,28 @@ public class ShoppingCartController : Controller
     [HttpPost]
     public IActionResult RemoveFromCart(string ean)
     {
-        var cart = HttpContext.Session.Get<ShoppingCart>("ShoppingCart") ?? new ShoppingCart();
-        var productToRemove = cart.Items.FirstOrDefault(p => p.EAN == ean);
+        var product = _context.Products.FirstOrDefault(p => p.EAN == ean);
 
-        if (productToRemove != null)
+        if (product != null)
         {
-            cart.Items.Remove(productToRemove);
-            HttpContext.Session.Set("ShoppingCart", cart);
+            var cart = HttpContext.Session.Get<ShoppingCart>("ShoppingCart") ?? new ShoppingCart();
+
+            // Increase the quantity
+            if (cart.ProductQuantities.ContainsKey(product.Id))
+            {
+                cart.ProductQuantities[product.Id]++;
+                HttpContext.Session.Set("ShoppingCart", cart);
+
+                // Update the quantity in the database
+                var dbProduct = _context.Products.FirstOrDefault(p => p.Id == product.Id);
+                if (dbProduct != null)
+                {
+                    dbProduct.Quantity = cart.ProductQuantities[product.Id];
+                    _context.SaveChanges();
+                }
+            }
         }
 
         return RedirectToAction("Index");
     }
-
 }
