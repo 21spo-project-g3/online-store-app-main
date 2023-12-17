@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using online_store_app.Data;
 using online_store_app.Extensions; // Make sure to include the namespace
 using online_store_app.Models;
-using System;
 using System.Linq;
 
 public class ShoppingCartController : Controller
@@ -32,22 +31,23 @@ public class ShoppingCartController : Controller
             var cart = HttpContext.Session.Get<ShoppingCart>("ShoppingCart") ?? new ShoppingCart();
 
             // If the cart is empty, set the timestamp
-            if (cart.ProductQuantities.Count == 0)
+            if (cart.Items.Count == 0)
             {
                 cart.CartTimestamp = DateTime.Now;
             }
 
             // Decrease the quantity
-            if (cart.ProductQuantities.ContainsKey(product.Id) && cart.ProductQuantities[product.Id] > 0)
+            if (product.Quantity > 0)
             {
-                cart.ProductQuantities[product.Id]--;
+                product.Quantity--;
+                cart.Items.Add(product);
                 HttpContext.Session.Set("ShoppingCart", cart);
 
                 // Update the quantity in the database
                 var dbProduct = _context.Products.FirstOrDefault(p => p.Id == product.Id);
                 if (dbProduct != null)
                 {
-                    dbProduct.Quantity = cart.ProductQuantities[product.Id];
+                    dbProduct.Quantity = product.Quantity;
                     _context.SaveChanges();
                 }
             }
@@ -59,25 +59,22 @@ public class ShoppingCartController : Controller
     [HttpPost]
     public IActionResult RemoveFromCart(string ean)
     {
-        var product = _context.Products.FirstOrDefault(p => p.EAN == ean);
+        var cart = HttpContext.Session.Get<ShoppingCart>("ShoppingCart") ?? new ShoppingCart();
+        var productToRemove = cart.Items.FirstOrDefault(p => p.EAN == ean);
 
-        if (product != null)
+        if (productToRemove != null)
         {
-            var cart = HttpContext.Session.Get<ShoppingCart>("ShoppingCart") ?? new ShoppingCart();
-
             // Increase the quantity
-            if (cart.ProductQuantities.ContainsKey(product.Id))
-            {
-                cart.ProductQuantities[product.Id]++;
-                HttpContext.Session.Set("ShoppingCart", cart);
+            productToRemove.Quantity++;
+            cart.Items.Remove(productToRemove);
+            HttpContext.Session.Set("ShoppingCart", cart);
 
-                // Update the quantity in the database
-                var dbProduct = _context.Products.FirstOrDefault(p => p.Id == product.Id);
-                if (dbProduct != null)
-                {
-                    dbProduct.Quantity = cart.ProductQuantities[product.Id];
-                    _context.SaveChanges();
-                }
+            // Update the quantity in the database
+            var dbProduct = _context.Products.FirstOrDefault(p => p.Id == productToRemove.Id);
+            if (dbProduct != null)
+            {
+                dbProduct.Quantity = productToRemove.Quantity;
+                _context.SaveChanges();
             }
         }
 
