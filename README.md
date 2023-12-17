@@ -66,3 +66,4 @@ Turrbobuy is a feature-rich E-Commerce platform designed to provide users with a
 ## Demo
 Check out our live demo here to experience Turrbobuy in action. Feel free to explore the features and functionalities.<br>
 [Link to Demo](https://online-store-app20231108162725.azurewebsites.net)
+[Link to Video](https://www.youtube.com/watch?v=eCOS9-MLo-g)
