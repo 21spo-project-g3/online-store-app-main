@@ -40,24 +40,6 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Quantity" class="control-label"></label>
-        <input asp-for="Quantity" class="form-control" />
-        <span asp-validation-for="Quantity" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="IsOnSale" class="control-label">In Sale</label>
-        <input asp-for="IsOnSale" class="form-check-input" />
-        <span asp-validation-for="IsOnSale" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="SalePercentage" class="control-label">Sale Percentage</label>
-        <input asp-for="SalePercentage" class="form-control" />
-        <span asp-validation-for="SalePercentage" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
         <label asp-for="CategoryId" class="control-label">Category</label>
         <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control"></select>
         <span asp-validation-for="CategoryId" class="text-danger"></span>
