@@ -33,4 +33,19 @@ public class ShoppingCartController : Controller
 
         return RedirectToAction("Index");
     }
+    [HttpPost]
+    public IActionResult RemoveFromCart(string ean)
+    {
+        var cart = HttpContext.Session.Get<ShoppingCart>("ShoppingCart") ?? new ShoppingCart();
+
+        var productToRemove = cart.Items.FirstOrDefault(p => p.EAN == ean);
+
+        if (productToRemove != null)
+        {
+            cart.Items.Remove(productToRemove);
+            HttpContext.Session.Set("ShoppingCart", cart);
+        }
+
+        return RedirectToAction("Index");
+    }
 }

@@ -10,7 +10,18 @@
         {
             @foreach (var item in cart.Items)
             {
-                <li>@item.Name - @item.AdjustedPrice</li>
+                <li style="list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <img src="@item.ImageUrl" alt="@item.Name" width="50" height="50">
+                        @item.Name - @item.AdjustedPrice
+                    </div>
+                    <div>
+                        <form method="post" asp-action="RemoveFromCart" asp-controller="ShoppingCart" style="display: inline;">
+                            <input type="hidden" name="ean" value="@item.EAN" />
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </div>
+                </li>
             }
         }
     </ul>
