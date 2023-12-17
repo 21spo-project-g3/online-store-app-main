@@ -6,10 +6,8 @@ using online_store_app.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure the connection string
-var connectionString = builder.Configuration.GetConnectionString("dev")
+var connectionString = builder.Configuration.GetConnectionString("production")
                        ?? throw new InvalidOperationException("Connection string not found.");
-
-// Connectionstring variables:  local        dev         prod
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -40,7 +38,9 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+
+// Add session services
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -60,11 +60,19 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Use session middleware
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "checkout",
+    pattern: "checkout/{action=Index}",
+    defaults: new { controller = "Checkout" });
+
+app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{ean?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 

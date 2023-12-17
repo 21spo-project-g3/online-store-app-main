@@ -1,0 +1,59 @@
+﻿@model online_store_app.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h2>Edit Product</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="EAN" class="control-label"></label>
+        <input asp-for="EAN" class="form-control" />
+        <span asp-validation-for="EAN" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageUrl" class="control-label">Image URL</label>
+        <input asp-for="ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label">Category</label>
+        <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save changes</button>
+</form>
+
+<div>
+    <a asp-action="Dashboard">Back to Dashboard</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
