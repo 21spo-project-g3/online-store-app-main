@@ -1,30 +1,61 @@
-﻿<!-- Views/ShoppingCart/Index.cshtml -->
-@model List<online_store_app.Models.ShoppingCart>
+﻿@model List<online_store_app.Models.ShoppingCart>
 
 <h1>Shopping Cart</h1>
 
 @if (Model != null && Model.Any())
 {
-    <ul>
-        @foreach (var cart in Model)
-        {
-            @foreach (var item in cart.Items)
+    @if (Model[0].CartTimestamp.HasValue && DateTime.Now - Model[0].CartTimestamp.Value > TimeSpan.FromMinutes(30))
+    {
+        <p>Your shopping cart has expired. Please add items again.</p>
+    }
+    else
+    {
+        <div>
+            @if (Model[0].CartTimestamp.HasValue && Model[0].Items.Any())
             {
-                <li style="list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <img src="@item.ImageUrl" alt="@item.Name" width="50" height="50">
-                        @item.Name - @item.AdjustedPrice
-                    </div>
-                    <div>
-                        <form method="post" asp-action="RemoveFromCart" asp-controller="ShoppingCart" style="display: inline;">
-                            <input type="hidden" name="ean" value="@item.EAN" />
-                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                        </form>
-                    </div>
-                </li>
+                <p id="timer"></p>
+                <script>
+                    // Calculate remaining time in seconds
+                    var remainingTime = Math.max(0, Math.round(@Model[0].CartTimestamp.Value.AddMinutes(30).Subtract(DateTime.Now).TotalSeconds));
+
+                    // Display timer
+                    document.getElementById("timer").innerHTML = "Time left in your shopping cart: " + Math.floor(remainingTime / 60) + "m " + (remainingTime % 60) + "s";
+
+                    // Update remaining time every second
+                    var timerInterval = setInterval(function () {
+                        if (remainingTime > 0) {
+                            remainingTime--;
+                            document.getElementById("timer").innerHTML = "Time left in your shopping cart: " + Math.floor(remainingTime / 60) + "m " + (remainingTime % 60) + "s";
+                        } else {
+                            // Optionally, you can redirect or perform additional actions when the timer reaches zero
+                            document.getElementById("timer").innerHTML = "Your shopping cart has expired. Please add items again.";
+                            clearInterval(timerInterval); // Stop the timer interval
+                        }
+                    }, 1000);
+                </script>
             }
-        }
-    </ul>
+            <ul>
+                @foreach (var cart in Model)
+                {
+                    @foreach (var item in cart.Items)
+                    {
+                        <li style="list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <img src="@item.ImageUrl" alt="@item.Name" width="50" height="50">
+                                @item.Name - @item.AdjustedPrice
+                            </div>
+                            <div>
+                                <form class="remove-form" method="post" asp-action="RemoveFromCart" asp-controller="ShoppingCart" style="display: inline;">
+                                    <input type="hidden" name="ean" value="@item.EAN" />
+                                    <button type="submit" class="btn btn-danger btn-sm float-right">Remove</button>
+                                </form>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
 }
 else
 {

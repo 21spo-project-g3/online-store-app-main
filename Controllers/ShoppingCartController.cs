@@ -1,7 +1,10 @@
 ﻿// Controllers/ShoppingCartController.cs
 using Microsoft.AspNetCore.Mvc;
 using online_store_app.Data;
-using online_store_app.Models; // Make sure to include the namespace
+using online_store_app.Extensions; // Make sure to include the namespace
+using online_store_app.Models;
+using System;
+using System.Collections.Generic;
 
 public class ShoppingCartController : Controller
 {
@@ -27,17 +30,24 @@ public class ShoppingCartController : Controller
         if (product != null)
         {
             var cart = HttpContext.Session.Get<ShoppingCart>("ShoppingCart") ?? new ShoppingCart();
+
+            // If the cart is empty, set the timestamp
+            if (cart.Items.Count == 0)
+            {
+                cart.CartTimestamp = DateTime.Now;
+            }
+
             cart.Items.Add(product);
             HttpContext.Session.Set("ShoppingCart", cart);
         }
 
         return RedirectToAction("Index");
     }
+
     [HttpPost]
     public IActionResult RemoveFromCart(string ean)
     {
         var cart = HttpContext.Session.Get<ShoppingCart>("ShoppingCart") ?? new ShoppingCart();
-
         var productToRemove = cart.Items.FirstOrDefault(p => p.EAN == ean);
 
         if (productToRemove != null)
@@ -48,4 +58,5 @@ public class ShoppingCartController : Controller
 
         return RedirectToAction("Index");
     }
+
 }
