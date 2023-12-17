@@ -37,6 +37,11 @@
 
                 <div class="navbar p-0">
                     <partial name="_LoginPartial" />
+
+                    <!-- Add the Shopping Cart button here -->
+                    <a class="nav-link text-white" asp-controller="ShoppingCart" asp-action="Index">
+                        <i class="bi bi-cart"></i> Shopping Cart
+                    </a>
                 </div>
             </div>
         </nav>
@@ -48,15 +53,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-md-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <ul class="navbar-nav flex-grow-1">
-                            <!-- Move the "Sale" link to the left side and change its color to red -->
-                            <li class="nav-item">
-                                <a class="nav-link text-danger" asp-controller="Sale" asp-action="Index">Sale</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Category" asp-action="Technology">Technology</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" asp-controller="Sale" asp-action="Index">Sale</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Category" asp-action="Technology">Technology</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Category" asp-action="Gaming">Gaming</a>
                         </li>
@@ -69,13 +71,11 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Category" asp-action="Hobbies_and_free_time">Hobbies & free time</a>
                         </li>
-                        <!-- Tämä näkyy vain admin käyttäjälle -->
                         @if (isAdmin)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-danger" asp-controller="Dashboard" asp-action="Dashboard">Admin Dashboard</a>
                             </li>
-                            <!-- Add Inventory Management button here -->
                             <li class="nav-item">
                                 <a class="nav-link text-info" asp-controller="Admin" asp-action="InventoryManagement">Inventory Management</a>
                             </li>

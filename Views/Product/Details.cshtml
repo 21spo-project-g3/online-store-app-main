@@ -33,9 +33,11 @@
         <div class="col-lg-9 align-items-center d-flex justify-content-center">
             <img src="@Model.ImageUrl" class="" alt="Product Image" style="height:600px;object-fit:contain;">
         </div>
+
         <!-- Right Side - Details -->
         <div class="col-lg-3">
             <div class="row">
+
                 <!-- Price -->
                 <div class="col-lg-12 mb-3">
                     <div class="card h-100">
@@ -47,31 +49,44 @@
                                 }
                                 @if (Model.IsOnSale)
                                 {
-                                    <span class="text-danger"><s>@Model.Price</s></span>
+                                    <span class="text-danger"><s>@Model.Price€</s></span>
                                     <br />
                                     <span class="text-success">
-                                        @string.Format("{0:0.00}", adjustedPrice)
-                                        (@string.Format("{0:0} % Off", Model.SalePercentage))
+                                        @string.Format("{0:0.00}", adjustedPrice)€
+                                        (@(Model.SalePercentage < 0 ? Math.Round(Model.SalePercentage) : "-" + Math.Round(Model.SalePercentage))%)
                                     </span>
                                 }
                                 else
                                 {
-                                    <span>@Model.Price</span>
+                                    <span>@Model.Price€</span>
                                 }
                             </h5>
                         </div>
                     </div>
                 </div>
 
-                <!-- Shopping Cart -->
+
+                <!-- Quantity and Add to Cart Button -->
                 <div class="col-lg-12 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-text">Available in stock: @Model.Quantity</h5>
-                            <button type="button" class="btn btn-info">Add to Cart</button>
+                            @if (Model.Quantity > 0)
+                            {
+                                <form method="post" asp-action="AddToCart" asp-controller="ShoppingCart">
+                                    <input type="hidden" name="ean" value="@Model.EAN" />
+                                    <button type="submit" class="btn btn-info">Add to Cart</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-danger" disabled>Out of Stock</button>
+                            }
                         </div>
                     </div>
                 </div>
+
+
                 <!-- Product Code -->
                 <div class="col-lg-12 mb-3">
                     <div class="card h-100">
@@ -83,6 +98,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Product Description -->
         <div class="col-lg-12 mb-3">
             <div class="card h-100">
@@ -93,6 +109,7 @@
             </div>
         </div>
 
+        <!-- Product Reviews -->
         @if (Model.Reviews != null && Model.Reviews.Any())
         {
             <div class="col-lg-12 mb-3">

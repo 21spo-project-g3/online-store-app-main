@@ -1,37 +1,54 @@
 ﻿<!-- Views/Sale/Index.cshtml -->
 @model List<online_store_app.Models.Product>
 
-<div class="album bg-body-tertiary">
-    <div class="container">
-        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-3">
-            @foreach (var product in Model)
-            {
-                <div class="col">
-                    <a class="card-link" href="@Url.Action("Details", "Product", new { ean = product.EAN })">
-                        <div class="card h-100">
-                            <img class="card-img-top p-2" src="@product.ImageUrl" alt="Product Image" style="height:200px;width:100%;object-fit:contain;">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title" style="text-transform: none;">@product.Name</h5>
-                                <div class="mt-auto d-flex justify-content-between align-items-end">
-                                    @{
-                                        if (product.IsOnSale)
-                                        {
-                                            double discountedPrice = (double)product.Price - ((double)product.Price * (double)product.SalePercentage / 100);
-                                            string formattedDiscountedPrice = Math.Round(discountedPrice, 2).ToString("0.00");
-                                            string roundedSalePercentage = Math.Round(product.SalePercentage).ToString(); // Round the sale percentage
-                                            <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: red;"><s style="color: red;">@product.Price€</s> <span style="color: green;">@formattedDiscountedPrice€</span> (<span style="color: green;">@roundedSalePercentage% Off</span>)</p>
+<main>
+    <section class="text-center container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="breadcrumb-item fw-bolder active" aria-current="page">Sale</li>
+            </ol>
+        </nav>
+        <div class="row py-lg-3">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Christmas Sale!</h1>
+                <p class="lead text-body-secondary">Even THE Santa is mad about these prices!</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="album bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-3">
+                @foreach (var product in Model)
+                {
+                    <div class="col">
+                        <a class="card-link" href="@Url.Action("Details", "Product", new { ean = product.EAN })">
+                            <div class="card h-100">
+                                <img class="card-img-top p-2" src="@product.ImageUrl" alt="Product Image" style="height:200px;width:100%;object-fit:contain;">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title" style="text-transform: none;">@product.Name</h5>
+                                    <div class="mt-auto d-flex justify-content-between align-items-end">
+                                        @{
+                                            if (product.IsOnSale)
+                                            {
+                                                double discountedPrice = (double)product.Price - ((double)product.Price * (double)product.SalePercentage / 100);
+                                                string formattedDiscountedPrice = Math.Round(discountedPrice, 2).ToString("0.00");
+                                                string roundedSalePercentage = Math.Round(product.SalePercentage).ToString(); // Round the sale percentage
+                                                <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: red;"><s style="color: red;">@product.Price€</s> <span style="color: green;">@formattedDiscountedPrice€</span> (<span style="color: green;">@roundedSalePercentage% Off</span>)</p>
+                                            }
+                                            else
+                                            {
+                                                <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: green;">@product.Price€</p>
+                                            }
                                         }
-                                        else
-                                        {
-                                            <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: green;">@product.Price€</p>
-                                        }
-                                    }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-            }
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-</div>
+</main>

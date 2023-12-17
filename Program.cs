@@ -38,7 +38,9 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+
+// Add session services
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -58,11 +60,19 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Use session middleware
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "checkout",
+    pattern: "checkout/{action=Index}",
+    defaults: new { controller = "Checkout" });
+
+app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{ean?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 
