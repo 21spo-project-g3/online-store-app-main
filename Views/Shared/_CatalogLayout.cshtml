@@ -20,7 +20,7 @@
                                             double discountedPrice = (double)product.Price - ((double)product.Price * (double)product.SalePercentage / 100);
                                             string formattedDiscountedPrice = Math.Round(discountedPrice, 2).ToString("0.00");
                                             string roundedSalePercentage = Math.Round(product.SalePercentage).ToString();
-                                            <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: red;"><s style="color: red;">@product.Price€</s> <span style="color: green;">@formattedDiscountedPrice€</span> (<span style="color: green;">@roundedSalePercentage% Off</span>)</p>
+                                            <p class="card-subtitle detail-card-title mb-0" style="font-size:1.5rem; color: red;"><s style="color: red;">@product.Price€</s> <span style="color: green;">@formattedDiscountedPrice€</span> (<span style="color: green;">@((int)product.SalePercentage < 0 ? ((int)product.SalePercentage).ToString() : "-" + ((int)product.SalePercentage))%</span>)</p>
                                         }
                                         else
                                         {

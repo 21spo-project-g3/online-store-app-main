@@ -1,7 +1,32 @@
-﻿<!-- Views//Index.cshtml -->
+﻿<!-- Views/ShoppingCart/Index.cshtml -->
 @model List<online_store_app.Models.ShoppingCart>
 
-<h1>Shopping Cart</h1>
+<h1 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+    Shopping Cart
+    @if (Model != null && Model.Any() && Model[0].Items.Any() && Model[0].CartTimestamp.HasValue && DateTime.Now - Model[0].CartTimestamp.Value <= TimeSpan.FromMinutes(30))
+    {
+        <span id="timer" style="font-size: 16px;"></span>
+        <script>
+            // Calculate remaining time in seconds
+            var remainingTime = Math.max(0, Math.round(@Model[0].CartTimestamp.Value.AddMinutes(30).Subtract(DateTime.Now).TotalSeconds));
+
+            // Display timer
+            document.getElementById("timer").innerHTML = "Time left: " + Math.floor(remainingTime / 60) + "m " + (remainingTime % 60) + "s";
+
+            // Update remaining time every second
+            var timerInterval = setInterval(function () {
+                if (remainingTime > 0) {
+                    remainingTime--;
+                    document.getElementById("timer").innerHTML = "Time left: " + Math.floor(remainingTime / 60) + "m " + (remainingTime % 60) + "s";
+                } else {
+                    // Optionally, you can redirect or perform additional actions when the timer reaches zero
+                    document.getElementById("timer").innerHTML = "Cart expired. Please add items again.";
+                    clearInterval(timerInterval); // Stop the timer interval
+                }
+            }, 1000);
+        </script>
+    }
+</h1>
 
 @if (Model != null && Model.Any())
 {
@@ -12,48 +37,45 @@
     else
     {
         <div>
-            @if (Model[0].CartTimestamp.HasValue && Model[0].Items.Any())
-            {
-                <p id="timer"></p>
-                <script>
-                    // Calculate remaining time in seconds
-                    var remainingTime = Math.max(0, Math.round(@Model[0].CartTimestamp.Value.AddMinutes(30).Subtract(DateTime.Now).TotalSeconds));
-
-                    // Display timer
-                    document.getElementById("timer").innerHTML = "Time left in your shopping cart: " + Math.floor(remainingTime / 60) + "m " + (remainingTime % 60) + "s";
-
-                    // Update remaining time every second
-                    var timerInterval = setInterval(function () {
-                        if (remainingTime > 0) {
-                            remainingTime--;
-                            document.getElementById("timer").innerHTML = "Time left in your shopping cart: " + Math.floor(remainingTime / 60) + "m " + (remainingTime % 60) + "s";
-                        } else {
-                            // Optionally, you can redirect or perform additional actions when the timer reaches zero
-                            document.getElementById("timer").innerHTML = "Your shopping cart has expired. Please add items again.";
-                            clearInterval(timerInterval); // Stop the timer interval
-                        }
-                    }, 1000);
-                </script>
-            }
-            <ul>
+            <!-- Shopping Cart List -->
+            <ul style="margin-top: 50px; margin-bottom: 50px;">
                 @foreach (var cart in Model)
                 {
                     @foreach (var item in cart.Items)
                     {
-                        <li style="list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                        <li style="list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 16px;">
                             <div>
-                                <img src="@item.ImageUrl" alt="@item.Name" width="50" height="50">
-                                @item.Name - @item.AdjustedPrice
+                                <img src="@item.ImageUrl" alt="@item.Name" width="70" height="70">
+                                <span style="font-size: 18px; color: @(item.IsOnSale ? "green" : "black");">@item.Name - @string.Format("{0:0.00}", item.AdjustedPrice) €</span>
                             </div>
                             <div>
                                 <form class="remove-form" method="post" asp-action="RemoveFromCart" asp-controller="ShoppingCart" style="display: inline;">
                                     <input type="hidden" name="ean" value="@item.EAN" />
-                                    <button type="submit" class="btn btn-danger btn-sm float-right">Remove</button>
+                                    <button type="submit" class="btn btn-danger btn-sm float-right" style="font-size: 16px;">Remove</button>
                                 </form>
                             </div>
                         </li>
                     }
                 }
+
+                <!-- Total Cost -->
+                <li style="list-style: none; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 18px;">
+                    <div>
+                        Total Cost:
+                    </div>
+                    <div>
+                        @if (Model[0].Items.Any())
+                        {
+                            @string.Format("{0:0.00}", Model[0].Items.Sum(item => item.IsOnSale ? item.AdjustedPrice : item.Price)) @Html.Raw("&euro;")
+
+
+                        }
+                        else
+                        {
+                            <text>0.00</text>
+                        }
+                    </div>
+                </li>
             </ul>
         </div>
     }
