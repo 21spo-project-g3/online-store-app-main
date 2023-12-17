@@ -1,10 +1,6 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using online_store_app.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using online_store_app.Data;
 using online_store_app.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -68,6 +64,11 @@ app.UseRouting();
 app.UseSession();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "checkout",
+    pattern: "checkout/{action=Index}",
+    defaults: new { controller = "Checkout" });
 
 app.MapControllerRoute(
     name: "default",
