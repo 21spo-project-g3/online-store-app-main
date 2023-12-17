@@ -1,5 +1,6 @@
 ﻿// CheckoutController.cs
 using Microsoft.AspNetCore.Mvc;
+using online_store_app.Extensions;
 
 public class CheckoutController : Controller
 {
@@ -12,8 +13,17 @@ public class CheckoutController : Controller
     [HttpPost]
     public IActionResult PlaceOrder(CheckoutModel model)
     {
-        // Process the order and redirect to a confirmation page
-        // (Note: In a real application, you would handle payment processing, order creation, etc.)
+        // Process the order (replace this with your actual order processing logic)
+
+        // Clear the shopping cart
+        HttpContext.Session.Remove("ShoppingCart");
+
+        // Redirect to the order confirmation page
         return RedirectToAction("OrderConfirmation");
+    }
+
+    public IActionResult OrderConfirmation()
+    {
+        return View();
     }
 }
