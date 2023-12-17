@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using online_store_app.Data;
 using online_store_app.Extensions; // Make sure to include the namespace
 using online_store_app.Models;
-using System.Linq;
 
 public class ShoppingCartController : Controller
 {
